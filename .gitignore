@@ -1,0 +1,30 @@
+
+# Gradle
+.gradle/
+build/
+**/build/
+
+# Local configuration - do not upload
+local.properties
+secrets.properties
+*.jks
+*.keystore
+
+# Android Studio / IntelliJ
+*.iml
+.idea/
+.kotlin/
+
+# Native build
+.externalNativeBuild/
+.cxx/
+
+# Generated files
+captures/
+.externalNativeBuild
+*.apk
+*.aab
+
+# Operating system
+.DS_Store
+Thumbs.db
