@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
+
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.OutlinedTextField
@@ -30,14 +31,14 @@ fun AddMediaScreen(
 ) {
     var title by remember { mutableStateOf("") }
     var type by remember { mutableStateOf("SERIES") }
+    var season by remember { mutableStateOf("1") }
+    var episode by remember { mutableStateOf("0") }
     var expanded by remember { mutableStateOf(false) }
 
     val types = listOf(
         "SERIES",
         "K_DRAMA",
-        "ANIME",
-        "MOVIE",
-        "BOOK"
+        "ANIME"
     )
 
     Column(
@@ -91,13 +92,31 @@ fun AddMediaScreen(
             }
         }
 
+        OutlinedTextField(
+            value = season,
+            onValueChange = { season = it.filter(Char::isDigit) },
+            label = { Text("شماره فصل") },
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = true
+        )
+
+        OutlinedTextField(
+            value = episode,
+            onValueChange = { episode = it.filter(Char::isDigit) },
+            label = { Text("آخرین قسمت تماشا شده") },
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = true
+        )
+
         Button(
             onClick = {
                 if (title.isNotBlank()) {
                     onSave(
                         MediaEntity(
                             title = title.trim(),
-                            type = type
+                            type = type,
+                            currentSeason = season.toIntOrNull() ?: 1,
+                            lastWatchedEpisode = episode.toIntOrNull() ?: 0
                         )
                     )
                 }
@@ -115,3 +134,4 @@ fun AddMediaScreen(
         }
     }
 }
+
